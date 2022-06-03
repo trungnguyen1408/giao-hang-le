@@ -1,0 +1,50 @@
+name: Actions
+
+# This action works with pull requests and pushes
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7.0.0
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install deps
+        run: |
+          pnpm install
+
+      - name: Run prettier
+        run: |
+          pnpx prettier --check --plugin-search-dir=. ./**/*.{js,ts,svelte}

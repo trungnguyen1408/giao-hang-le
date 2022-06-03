@@ -1,0 +1,113 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {},
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/home/dykhng/.local/share/pnpm/store/v3",
+    "virtualStoreDir": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "stage": "resolution_started"
+  },
+  "4 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/prettier/2.6.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "prettier",
+      "rawSpec": "latest"
+    }
+  },
+  "5 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/prettier/2.6.2",
+    "requester": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "status": "resolved"
+  },
+  "6 debug pnpm:package-manifest": {
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "updated": {
+      "dependencies": {
+        "prettier": "^2.6.2"
+      }
+    }
+  },
+  "7 debug pnpm:package-manifest": {
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "updated": {
+      "dependencies": {
+        "prettier": "^2.6.2"
+      }
+    }
+  },
+  "8 debug pnpm:stage": {
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "stage": "resolution_done"
+  },
+  "9 debug pnpm:stats": {
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "removed": 0
+  },
+  "10 debug pnpm:stage": {
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "stage": "importing_started"
+  },
+  "11 debug pnpm:stats": {
+    "added": 1,
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016"
+  },
+  "12 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/prettier/2.6.2",
+    "requester": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "status": "found_in_store"
+  },
+  "13 debug pnpm:package-import-method": {
+    "method": "hardlink"
+  },
+  "14 debug pnpm:progress": {
+    "method": "hardlink",
+    "requester": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "status": "imported",
+    "to": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/.pnpm/prettier@2.6.2/node_modules/prettier"
+  },
+  "15 debug pnpm:stage": {
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016",
+    "stage": "importing_done"
+  },
+  "16 debug pnpm:link": {
+    "target": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/.pnpm/prettier@2.6.2/node_modules/prettier",
+    "link": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/prettier"
+  },
+  "17 debug pnpm:root": {
+    "added": {
+      "dependencyType": "prod",
+      "id": "registry.npmjs.org/prettier/2.6.2",
+      "name": "prettier",
+      "realName": "prettier",
+      "version": "2.6.2"
+    },
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016"
+  },
+  "18 debug pnpm:summary": {
+    "prefix": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016"
+  },
+  "19 error pnpm": {
+    "shortMessage": "Command failed with exit code 1: /home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/.bin/prettier --check ./client/**/*.*",
+    "command": "/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/.bin/prettier --check ./client/**/*.*",
+    "escapedCommand": "\"/home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/.bin/prettier\" --check \"./client/**/*.*\"",
+    "exitCode": 1,
+    "failed": true,
+    "timedOut": false,
+    "isCanceled": false,
+    "killed": false,
+    "err": {
+      "name": "pnpm",
+      "message": "Command failed with exit code 1: /home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/.bin/prettier --check ./client/**/*.*",
+      "stack": "pnpm: Command failed with exit code 1: /home/dykhng/.local/share/pnpm/store/v3/tmp/dlx-10016/node_modules/.bin/prettier --check ./client/**/*.*\n    at makeError (/home/dykhng/.nvm/versions/node/v17.4.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.0.1/node_modules/pnpm/dist/pnpx.cjs:36809:17)\n    at handlePromise (/home/dykhng/.nvm/versions/node/v17.4.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.0.1/node_modules/pnpm/dist/pnpx.cjs:37380:33)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n    at async Object.handler [as dlx] (/home/dykhng/.nvm/versions/node/v17.4.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.0.1/node_modules/pnpm/dist/pnpx.cjs:170757:7)\n    at async /home/dykhng/.nvm/versions/node/v17.4.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.0.1/node_modules/pnpm/dist/pnpx.cjs:176187:21\n    at async run (/home/dykhng/.nvm/versions/node/v17.4.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.0.1/node_modules/pnpm/dist/pnpx.cjs:176161:34)\n    at async /home/dykhng/.nvm/versions/node/v17.4.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.0.1/node_modules/pnpm/dist/pnpx.cjs:176233:5"
+    }
+  }
+}
