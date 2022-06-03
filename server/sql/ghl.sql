@@ -27,60 +27,60 @@ CREATE SCHEMA GIAO_HANG_LE;
 GO
 
 CREATE TABLE GIAO_HANG_LE.TAI_KHOAN (
-    ten_dang_nhap VARCHAR(32) PRIMARY KEY,
+    ten_dang_nhap VARCHAR(64) PRIMARY KEY,
     mat_khau VARCHAR(32) NOT NULL,
-    diem_thuong INT
+    diem_thuong INT DEFAULT 0,
 )
 
 CREATE TABLE GIAO_HANG_LE.DON_HANG (
-    ma_don_hang CHAR(10) PRIMARY KEY,
-    trong_luong DECIMAL(10, 1) NOT NULL,
+    ma_don_hang INT PRIMARY KEY IDENTITY(0,1),
+    trong_luong DECIMAL(10,1) DEFAULT 0,
     can_giao_di VARCHAR(64) NOT NULL,
     dia_chi_di VARCHAR(64) NOT NULL,
     dia_chi_den VARCHAR(64) NOT NULL
 )
 
 CREATE TABLE GIAO_HANG_LE.KHO_HANG (
-    ma_kho_hang CHAR(10) PRIMARY KEY,
+    ma_kho_hang INT PRIMARY KEY IDENTITY(0,1),
     ten_kho_hang VARCHAR(32) NOT NULL,
     dia_chi VARCHAR(64) NOT NULL
 )
 
 CREATE TABLE GIAO_HANG_LE.CHANG (
-    ma_chang CHAR(10) PRIMARY KEY,
-    kho_bat_dau CHAR(10) NOT NULL,
-    kho_ket_thuc CHAR(10) NOT NULL,
-    phi_duoi_1kg DECIMAL(10, 4) NOT NULL,
-    phi_duoi_10kg DECIMAL(10, 4) NOT NULL,
-    phi_tren_10kg DECIMAL(10, 4) NOT NULL,
+    ma_chang INT PRIMARY KEY IDENTITY(0,1),
+    kho_bat_dau INT NOT NULL,
+    kho_ket_thuc INT NOT NULL,
+    phi_duoi_1kg DECIMAL(10,4) NOT NULL,
+    phi_duoi_10kg DECIMAL(10,4) NOT NULL,
+    phi_tren_10kg DECIMAL(10,4) NOT NULL,
 
     FOREIGN KEY (kho_bat_dau) REFERENCES GIAO_HANG_LE.KHO_HANG(ma_kho_hang),
     FOREIGN KEY (kho_ket_thuc) REFERENCES GIAO_HANG_LE.KHO_HANG(ma_kho_hang)
 )
 
 CREATE TABLE GIAO_HANG_LE.KHACH_HANG (
-    ma_khach_hang CHAR(10) PRIMARY KEY,
-    ten_dang_nhap VARCHAR(32) NOT NULL,
-    ten_khach_hang VARCHAR(32) NOT NULL,
+    ma_khach_hang INT PRIMARY KEY IDENTITY(0,1),
+    ten_dang_nhap VARCHAR(64) NOT NULL UNIQUE,
+    ten_khach_hang VARCHAR(64) NOT NULL,
     dia_chi VARCHAR(64) NOT NULL,
-    so_dien_thoai DECIMAL(10, 0) NOT NULL,
-    email VARCHAR(64) NOT NULL,
+    so_dien_thoai DECIMAL(10,0) NOT NULL,
+    email VARCHAR(64) NOT NULL UNIQUE,
 
-    FOREIGN KEY (ten_dang_nhap) REFERENCES GIAO_HANG_LE.TAI_KHOAN(ten_dang_nhap)
+    FOREIGN KEY (ten_dang_nhap) REFERENCES GIAO_HANG_LE.TAI_KHOAN(ten_dang_nhap) ON DELETE CASCADE
 )
 
 CREATE TABLE GIAO_HANG_LE.DAT_HANG (
-    ma_don_hang CHAR(10) PRIMARY KEY,
-    ma_khach_hang CHAR(10) NOT NULL,
+    ma_don_hang INT PRIMARY KEY,
+    ma_khach_hang INT NOT NULL UNIQUE,
     thoi_gian TIMESTAMP NOT NULL,
 
-    FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang),
-    FOREIGN KEY (ma_khach_hang) REFERENCES GIAO_HANG_LE.KHACH_HANG(ma_khach_hang)
+    FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang) ON DELETE CASCADE,
+    FOREIGN KEY (ma_khach_hang) REFERENCES GIAO_HANG_LE.KHACH_HANG(ma_khach_hang) ON DELETE RESTRICT,
 )
 
 CREATE TABLE GIAO_HANG_LE.DI_QUA (
-    ma_don_hang CHAR(10) PRIMARY KEY,
-    ma_chang CHAR(10) NOT NULL,
+    ma_don_hang INT PRIMARY KEY,
+    ma_chang INT NOT NULL UNIQUE,
     thu_tu INT NOT NULL DEFAULT 0,
 
     FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang),
@@ -88,61 +88,61 @@ CREATE TABLE GIAO_HANG_LE.DI_QUA (
 )
 
 CREATE TABLE GIAO_HANG_LE.THUNG_HANG (
-    ma_thung_hang CHAR(10) PRIMARY KEY,
-    ma_chang CHAR(10) NOT NULL,
+    ma_thung_hang INT PRIMARY KEY IDENTITY(0,1),
+    ma_chang INT NOT NULL,
 
     FOREIGN KEY (ma_chang) REFERENCES GIAO_HANG_LE.CHANG(ma_chang)
 )
 
 CREATE TABLE GIAO_HANG_LE.ROI_KHO (
-    ma_thung CHAR(10) PRIMARY KEY,
+    ma_thung INT PRIMARY KEY,
     thoi_gian_di DATE NOT NULL,
     thoi_gian_den DATE NOT NULL,
 
-    FOREIGN KEY (ma_thung) REFERENCES GIAO_HANG_LE.THUNG_HANG(ma_thung_hang)
+    FOREIGN KEY (ma_thung) REFERENCES GIAO_HANG_LE.THUNG_HANG(ma_thung_hang) ON DELETE CASCADE
 )
 
 CREATE TABLE GIAO_HANG_LE.NHAN_VIEN (
-    ma_nhan_vien CHAR(10) PRIMARY KEY,
-    ten_dang_nhap VARCHAR(32) NOT NULL,
-    ten_nhan_vien VARCHAR(32) NOT NULL,
+    ma_nhan_vien INT PRIMARY KEY,
+    ten_dang_nhap VARCHAR(64) NOT NULL UNIQUE,
+    ten_nhan_vien VARCHAR(64) NOT NULL,
     dia_chi VARCHAR(64) NOT NULL,
     so_dien_thoai DECIMAL(10, 0) NOT NULL,
-    email VARCHAR(64) NOT NULL,
+    email VARCHAR(64) NOT NULL UNIQUE,
 
-    FOREIGN KEY (ten_dang_nhap) REFERENCES GIAO_HANG_LE.TAI_KHOAN(ten_dang_nhap)
+    FOREIGN KEY (ten_dang_nhap) REFERENCES GIAO_HANG_LE.TAI_KHOAN(ten_dang_nhap) ON DELETE CASCADE
 )
 
 CREATE TABLE GIAO_HANG_LE.KIEM_KHO (
-    ma_nhan_vien CHAR(10) PRIMARY KEY,
+    ma_nhan_vien INT PRIMARY KEY,
     phong INT NOT NULL,
 
-    FOREIGN KEY (ma_nhan_vien) REFERENCES GIAO_HANG_LE.NHAN_VIEN(ma_nhan_vien)
+    FOREIGN KEY (ma_nhan_vien) REFERENCES GIAO_HANG_LE.NHAN_VIEN(ma_nhan_vien) ON DELETE RESTRICT
 )
 
 CREATE TABLE GIAO_HANG_LE.DONG_GOI (
-    ma_don_hang CHAR(10) PRIMARY KEY,
-    ma_thung_hang CHAR(10) NOT NULL,
-    ma_kiem_kho CHAR(10) NOT NULL,
+    ma_don_hang INT PRIMARY KEY,
+    ma_thung_hang INT NOT NULL UNIQUE,
+    ma_kiem_kho INT NOT NULL UNIQUE,
     thoi_gian DATE NOT NULL,
 
-    FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang),
-    FOREIGN KEY (ma_thung_hang) REFERENCES GIAO_HANG_LE.THUNG_HANG(ma_thung_hang),
+    FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang) ON DELETE CASCADE,
+    FOREIGN KEY (ma_thung_hang) REFERENCES GIAO_HANG_LE.THUNG_HANG(ma_thung_hang) ON DELETE CASCADE,
     FOREIGN KEY (ma_kiem_kho) REFERENCES GIAO_HANG_LE.KIEM_KHO(ma_nhan_vien)
 )
 
 CREATE TABLE GIAO_HANG_LE.TAI_XE (
-    ma_tai_xe CHAR(10) PRIMARY KEY,
-    bien_so_xe VARCHAR(16) NOT NULL,
+    ma_tai_xe INT PRIMARY KEY,
+    bien_so_xe VARCHAR(16) NOT NULL UNIQUE,
 
-    FOREIGN KEY (ma_tai_xe) REFERENCES GIAO_HANG_LE.NHAN_VIEN(ma_nhan_vien)
+    FOREIGN KEY (ma_tai_xe) REFERENCES GIAO_HANG_LE.NHAN_VIEN(ma_nhan_vien) ON DELETE CASCADE
 )
 
 CREATE TABLE GIAO_HANG_LE.GIAO_DEN (
-    ma_don_hang CHAR(10) PRIMARY KEY,
+    ma_don_hang INT PRIMARY KEY,
     thoi_gian DATE NOT NULL UNIQUE,
-    ma_tai_xe CHAR(10) NOT NULL,
-    thanh_cong BOOLEAN NOT NULL,
+    ma_tai_xe INT NOT NULL UNIQUE,
+    thanh_cong BIT NOT NULL,
     ly_do VARCHAR(64),
 
     FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang),
@@ -150,10 +150,10 @@ CREATE TABLE GIAO_HANG_LE.GIAO_DEN (
 )
 
 CREATE TABLE GIAO_HANG_LE.GIAO_DI (
-    ma_don_hang CHAR(10) PRIMARY KEY,
+    ma_don_hang INT PRIMARY KEY,
     thoi_gian DATE NOT NULL UNIQUE,
-    ma_tai_xe CHAR(10) NOT NULL,
-    thanh_cong BOOLEAN NOT NULL,
+    ma_tai_xe INT NOT NULL UNIQUE,
+    thanh_cong BIT NOT NULL,
     ly_do VARCHAR(64),
 
     FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang),
