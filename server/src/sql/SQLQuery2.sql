@@ -6,7 +6,7 @@ CREATE TABLE GIAO_HANG_LE.TAI_KHOAN (
 
 CREATE TABLE GIAO_HANG_LE.DON_HANG (
     ma_don_hang INT PRIMARY KEY IDENTITY(0,1),
-    trong_luong DECIMAL(10, 1) NOT NULL DEFAULT 0,
+    trong_luong FLOAT NOT NULL DEFAULT 0,
     can_giao_di VARCHAR(64) NOT NULL,
     dia_chi_di VARCHAR(128) NOT NULL,
     dia_chi_den VARCHAR(128) NOT NULL,
@@ -187,6 +187,43 @@ CREATE TABLE GIAO_HANG_LE.NGUOINHAN (
 	
 	FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang) ON DELETE CASCADE ON UPDATE CASCADE
 ); 
+
+
+CREATE OR ALTER TRIGGER Check_Khoiluong
+ON GIAO_HANG_LE.DON_HANG
+FOR  INSERT, UPDATE 
+AS
+BEGIN
+	DECLARE @kl FLOAT;
+	SELECT @kl = trong_luong from INSERTED;
+	IF (@kl > 10.0) 
+	BEGIN
+		RAISERROR ('Khoi luong don hang khong duoc vuot qua 10kg', 16, 1);
+		ROLLBACK; 
+	END;
+END;
+
+ALTER TRIGGER trg_Sum ON SpaceMixes
+FOR INSERT AS
+
+DECLARE @sum INT
+
+SELECT @sum = sum(SpaceMixes.Percentage)
+FROM inserted, SpaceMixes
+WHERE inserted.AreaNr = SpaceMixes.AreaNr AND inserted.SpaceNr = SpaceMixes.SpaceNr
+GROUP BY inserted.AreaNr
+
+IF NOT (@sum = 10)
+
+BEGIN
+RAISERROR ('The sum of the percentages must be 10 for each work space!',16, 1)
+ROLLBACK TRANSACTION
+END
+
+
+
+
+
 
 
 SELECT * FROM GIAO_HANG_LE.TAI_KHOAN;
