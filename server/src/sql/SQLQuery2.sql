@@ -4,22 +4,66 @@ CREATE TABLE GIAO_HANG_LE.TAI_KHOAN (
     diem_thuong INT NOT NULL DEFAULT 0
 );
 
+--INSERT INTO GIAO_HANG_LE.TAI_KHOAN VALUES('admin', 'root', 0);
+--INSERT INTO GIAO_HANG_LE.TAI_KHOAN VALUES('trung.nguyen', 'trung1234', 200);
+--INSERT INTO GIAO_HANG_LE.TAI_KHOAN VALUES('khang.nguyen', 'khang1234', 200);
+--INSERT INTO GIAO_HANG_LE.TAI_KHOAN VALUES('phat.nguyen', 'phat1234', 200);
+--INSERT INTO GIAO_HANG_LE.TAI_KHOAN VALUES('dat.du', 'dat1234', 200);
+
+
+CREATE TABLE GIAO_HANG_LE.KHACH_HANG (
+    ma_khach_hang INT PRIMARY KEY IDENTITY(0,1),
+    ten_dang_nhap VARCHAR(32) NOT NULL UNIQUE,
+    ten_khach_hang VARCHAR(32) NOT NULL,
+    dia_chi VARCHAR(128) NOT NULL,
+    so_dien_thoai CHAR(10) NOT NULL UNIQUE,
+    email VARCHAR(64) NOT NULL UNIQUE,
+
+    FOREIGN KEY (ten_dang_nhap) REFERENCES GIAO_HANG_LE.TAI_KHOAN(ten_dang_nhap) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+--INSERT INTO GIAO_HANG_LE.KHACH_HANG VALUES('admin', 'admin', '0', 0909000000, 'admin@company.com');
+--INSERT INTO GIAO_HANG_LE.KHACH_HANG VALUES ('trung.nguyen', 'Nguyen Thanh Trung', '497 Hoa Hao, Phuong 07, Quan 10, TP HCM', 0772220220, 'trung.nguyen@gmail.com');
+--INSERT INTO GIAO_HANG_LE.KHACH_HANG VALUES ('khang.nguyen', 'Nguyen Duy Khang', 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', 0909009009, 'khang.nguyen@gmail.com');
+--INSERT INTO GIAO_HANG_LE.KHACH_HANG VALUES ('phat.nguyen', 'Nguyen Tan Phat', 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', 0989124245, 'phat.nguyen@gmail.com');
+--INSERT INTO GIAO_HANG_LE.KHACH_HANG VALUES ('dat.du', 'Du Thanh Dat', 'Ky tuc xa khu B, Phuong Dong Hoa, TP Di An, Tinh Binh Duong', 0978145246, 'dat.du@gmail.com');
+
+--SELECT * FROM GIAO_HANG_LE.KHACH_HANG;
+
 CREATE TABLE GIAO_HANG_LE.DON_HANG (
     ma_don_hang INT PRIMARY KEY IDENTITY(0,1),
+	ma_khach_hang INT NOT NULL,
     trong_luong FLOAT NOT NULL DEFAULT 0,
-    can_giao_di VARCHAR(64) NOT NULL,
+    can_giao_di BIT NOT NULL,
     dia_chi_di VARCHAR(128) NOT NULL,
     dia_chi_den VARCHAR(128) NOT NULL,
 	gia_tien INT NOT NULL DEFAULT 0
+
+	FOREIGN KEY (ma_khach_hang) REFERENCES GIAO_HANG_LE.KHACH_HANG(ma_khach_hang) ON DELETE CASCADE ON UPDATE CASCADE
+
 	CONSTRAINT check_giatien_donhang
 		CHECK (gia_tien >= 0)
 );
+
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (1, 1.2, 1, '497 Hoa Hao, Phuong 07, Quan 10, TP HCM', '3 Nguyen Gia Thieu, Phuong 12, Quan 3, TP HCM', 12000);
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (1, 7.5, 0, '497 Hoa Hao, Phuong 07, Quan 10, TP HCM', 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', 24000);
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (3, 5, 1, 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', '3 Nguyen Gia Thieu, Phuong 12, Quan 3, TP HCM', 24000);
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (2, 5, 1, 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', '47 Hoang Hoa Tham, Quan Hoan Kiem, TP Ha Noi', 50000);
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (3, 5, 1, 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', '120 Ba Cu, Phuong 5, TP Vung Tau, Tinh Ba Ria Vung Tau', 35000);
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (4, 5, 1, 'Ky tuc xa khu B, Phuong Dong Hoa, TP Di An, Tinh Binh Duong', '20/4 Phan Huy Ich, Phuong 5, Quan Phu Nhuan, TP HCM', 24000);
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (1, 5, 1, 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', '72/10/1 Kinh Duong Vuong, Phuong An Lac, Quan Binh Tan, TP HCM', 30000);
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (2, 5, 1, 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', '120 Ba Cu, Phuong 5, TP Vung Tau, Tinh Ba Ria Vung Tau', 35000);
+--INSERT INTO GIAO_HANG_LE.DON_HANG VALUES  (2, 5, 1, 'Ky tuc xa khu A, Phuong Linh Trung, TP Thu Duc, TP HCM', '72/10/1 Kinh Duong Vuong, Phuong An Lac, Quan Binh Tan, TP HCM', 30000);
+
+--SELECT * FROM GIAO_HANG_LE.DON_HANG;
 
 CREATE TABLE GIAO_HANG_LE.KHO_HANG (
     ma_kho_hang INT PRIMARY KEY IDENTITY(0,1),
     ten_kho_hang VARCHAR(32) NOT NULL UNIQUE,
     dia_chi VARCHAR(128) NOT NULL UNIQUE
 );
+
+
 
 CREATE TABLE GIAO_HANG_LE.CHANG (
     ma_chang INT PRIMARY KEY IDENTITY(0,1),
@@ -34,17 +78,6 @@ CREATE TABLE GIAO_HANG_LE.CHANG (
 
 	CONSTRAINT check_giatien_chan1
 		CHECK (phi_duoi_1kg >= 0 AND phi_duoi_10kg >= 0 AND phi_tren_10kg >= 0) 
-);
-
-CREATE TABLE GIAO_HANG_LE.KHACH_HANG (
-    ma_khach_hang INT PRIMARY KEY IDENTITY(0,1),
-    ten_dang_nhap VARCHAR(32) NOT NULL UNIQUE,
-    ten_khach_hang VARCHAR(32) NOT NULL,
-    dia_chi VARCHAR(128) NOT NULL,
-    so_dien_thoai DECIMAL(10, 0) NOT NULL UNIQUE,
-    email VARCHAR(64) NOT NULL UNIQUE,
-
-    FOREIGN KEY (ten_dang_nhap) REFERENCES GIAO_HANG_LE.TAI_KHOAN(ten_dang_nhap) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE GIAO_HANG_LE.DAT_HANG (
