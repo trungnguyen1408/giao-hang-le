@@ -87,9 +87,11 @@ CREATE TABLE GIAO_HANG_LE.NHAN_VIEN (
 
 CREATE TABLE GIAO_HANG_LE.KIEM_KHO (
     ma_nhan_vien INT PRIMARY KEY,
+	ma_so_kho INT,
     phong INT NOT NULL,
 
     FOREIGN KEY (ma_nhan_vien) REFERENCES GIAO_HANG_LE.NHAN_VIEN(ma_nhan_vien) ON UPDATE CASCADE
+	FOREIGN KEY (ma_so_kho) REFERENCES GIAO_HANG_LE.KHO_HANG(ma_kho_hang) ON UPDATE CASCADE
 );
 
 
@@ -137,6 +139,18 @@ CREATE TABLE GIAO_HANG_LE.DONG_GOI (
     FOREIGN KEY (ma_kiem_kho) REFERENCES GIAO_HANG_LE.KIEM_KHO(ma_nhan_vien) ON UPDATE CASCADE
 );
 
+CREATE TABLE GIAO_HANG_LE.GIAO_DI (
+    ma_don_hang INT NOT NULL,
+    thoi_gian DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ma_tai_xe INT NOT NULL,
+    thanh_cong BIT NOT NULL,
+    ly_do VARCHAR(64),
+
+	PRIMARY KEY (ma_don_hang, thoi_gian, ma_tai_xe),
+
+    FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ma_tai_xe) REFERENCES GIAO_HANG_LE.TAI_XE(ma_tai_xe) ON UPDATE CASCADE
+);
 
 CREATE TABLE GIAO_HANG_LE.GIAO_DEN (
     ma_don_hang INT NOT NULL,
@@ -167,19 +181,6 @@ CREATE TABLE GIAO_HANG_LE.GIAO_DEN_KHO(
 );
 
 
-CREATE TABLE GIAO_HANG_LE.GIAO_DI (
-    ma_don_hang INT NOT NULL,
-    thoi_gian DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    ma_tai_xe INT NOT NULL,
-    thanh_cong BIT NOT NULL,
-    ly_do VARCHAR(64),
-
-	PRIMARY KEY (ma_don_hang, thoi_gian, ma_tai_xe),
-
-    FOREIGN KEY (ma_don_hang) REFERENCES GIAO_HANG_LE.DON_HANG(ma_don_hang) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (ma_tai_xe) REFERENCES GIAO_HANG_LE.TAI_XE(ma_tai_xe) ON UPDATE CASCADE
-);
-
 CREATE TABLE GIAO_HANG_LE.NGUOINHAN (
 	ma_don_hang INT PRIMARY KEY,
 	ten_nguoi_nhan VARCHAR(32) NOT NULL,
@@ -203,23 +204,63 @@ BEGIN
 	END;
 END;
 
-ALTER TRIGGER trg_Sum ON SpaceMixes
-FOR INSERT AS
 
-DECLARE @sum INT
-
-SELECT @sum = sum(SpaceMixes.Percentage)
-FROM inserted, SpaceMixes
-WHERE inserted.AreaNr = SpaceMixes.AreaNr AND inserted.SpaceNr = SpaceMixes.SpaceNr
-GROUP BY inserted.AreaNr
-
-IF NOT (@sum = 10)
-
+CREATE OR ALTER TRIGGER Check_SoluongNV
+ON GIAO_HANG_LE.KIEM_KHO
+FOR  INSERT, UPDATE 
+AS
 BEGIN
-RAISERROR ('The sum of the percentages must be 10 for each work space!',16, 1)
-ROLLBACK TRANSACTION
-END
+	DECLARE @sum INT;
 
+	SELECT @sum = COUNT(GIAO_HANG_LE.KIEM_KHO.ma_nhan_vien)
+	FROM INSERTED, GIAO_HANG_LE.KIEM_KHO
+	WHERE INSERTED.ma_so_kho = GIAO_HANG_LE.KIEM_KHO.ma_so_kho AND INSERTED.phong = GIAO_HANG_LE.KIEM_KHO.phong
+	GROUP BY GIAO_HANG_LE.KIEM_KHO.phong;
+
+	IF (@sum > 10)
+	BEGIN
+	RAISERROR ('So nhan vien trong mot phong khong the lon hon 10', 16, 1);
+	ROLLBACK; 
+	END;
+END;
+
+CREATE OR ALTER TRIGGER Check_Solannhan
+ON GIAO_HANG_LE.GIAO_DEN
+FOR INSERT
+AS
+BEGIN
+	DECLARE @sum INT;
+
+	SELECT @sum = COUNT(*)
+	FROM INSERTED, GIAO_HANG_LE.GIAO_DEN
+	WHERE INSERTED.ma_don_hang = GIAO_HANG_LE.GIAO_DEN.ma_don_hang
+	GROUP BY GIAO_HANG_LE.GIAO_DEN.ma_don_hang;
+
+	IF (@sum > 5)
+	BEGIN
+	RAISERROR ('Khong the luu kho qua 5 lan', 16, 1);
+	ROLLBACK; 
+	END;
+END;
+
+CREATE OR ALTER TRIGGER Check_Solangui
+ON GIAO_HANG_LE.GIAO_DI
+FOR INSERT
+AS
+BEGIN
+	DECLARE @sum INT;
+
+	SELECT @sum = COUNT(*)
+	FROM INSERTED, GIAO_HANG_LE.GIAO_DI
+	WHERE INSERTED.ma_don_hang = GIAO_HANG_LE.GIAO_DI.ma_don_hang
+	GROUP BY GIAO_HANG_LE.GIAO_DI.ma_don_hang;
+
+	IF (@sum > 5)
+	BEGIN
+	RAISERROR ('Khong the lay hang tu nguoi gui, bi tu choi qua 5 lan!', 16, 1);
+	ROLLBACK; 
+	END;
+END;
 
 
 
