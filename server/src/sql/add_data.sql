@@ -267,21 +267,21 @@ INSERT INTO GIAO_HANG_LE.ROI_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES
 (12, 20, 9),
 (13, 21, 8);
 
-INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES
-(0, 22, 1),
-(1, 23, 15),
-(2, 24, 4),
-(3, 25, 7),
-(4, 26, 16),
-(5, 27, 0),
-(6, 28, 13),
-(7, 29, 3),
-(8, 30, 2),
-(9, 33, 4),
-(10, 32, 12),
-(11, 31, 1),
-(12, 20, 8),
-(13, 21, 14);
+
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (0, 22, 1);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (1, 23, 15);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (2, 24, 4);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (3, 25, 7);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (4, 26, 16);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (5, 27, 0);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (6, 28, 13);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (7, 29, 3);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (8, 30, 2);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (9, 33, 4);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (10, 32, 12);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (11, 31, 1);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (12, 20, 8);
+INSERT INTO GIAO_HANG_LE.DEN_KHO(ma_thung, ma_tai_xe, ma_kiem_kho)  VALUES (13, 21, 14);
 
 INSERT INTO GIAO_HANG_LE.DONG_GOI(ma_don_hang, ma_thung_hang, ma_kiem_kho) VALUES
 (0, 0, 0),
@@ -303,7 +303,7 @@ INSERT INTO GIAO_HANG_LE.DONG_GOI(ma_don_hang, ma_thung_hang, ma_kiem_kho) VALUE
 
 INSERT INTO GIAO_HANG_LE.GIAO_DI(ma_don_hang, ma_tai_xe, thanh_cong, ly_do) VALUES
 (0, 17, 1, ''),
-(1, 17, 0, 'Nguoi gui chuan bi hang'),
+(1, 17, 0, 'Nguoi gui chua chuan bi hang'),
 (3, 18, 1, ''),
 (5, 19, 1, '');
 INSERT INTO GIAO_HANG_LE.GIAO_DI(ma_don_hang, ma_tai_xe, thanh_cong, ly_do) VALUES
@@ -317,11 +317,10 @@ INSERT INTO GIAO_HANG_LE.GIAO_DEN(ma_don_hang, ma_tai_xe, thanh_cong, ly_do) VAL
 (4, 17, 1, ''),
 (5, 17, 1, '');
 
-INSERT INTO GIAO_HANG_LE.GIAO_DEN_KHO(ma_don_hang, ma_tai_xe, ma_kiem_kho) VALUES
-(0, 17, 0),
-(1, 17, 1),
-(3, 18, 0),
-(5, 19, 8);
+INSERT INTO GIAO_HANG_LE.GIAO_DEN_KHO(ma_don_hang, ma_tai_xe, ma_kiem_kho) VALUES (0, 17, 0);
+INSERT INTO GIAO_HANG_LE.GIAO_DEN_KHO(ma_don_hang, ma_tai_xe, ma_kiem_kho) VALUES (1, 17, 1);
+INSERT INTO GIAO_HANG_LE.GIAO_DEN_KHO(ma_don_hang, ma_tai_xe, ma_kiem_kho) VALUES (3, 18, 0);
+INSERT INTO GIAO_HANG_LE.GIAO_DEN_KHO(ma_don_hang, ma_tai_xe, ma_kiem_kho) VALUES (5, 19, 8);
  
  INSERT INTO GIAO_HANG_LE.NGUOINHAN VALUES 
 (0, 'Nguyen Thanh An', 0979135654),
