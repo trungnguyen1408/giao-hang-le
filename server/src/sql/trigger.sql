@@ -143,10 +143,10 @@ BEGIN
 END;
 
 
---- Cong diem cho tk neu co don hang moi lon hon 20,000
+--- Cong diem cho tk neu co don hang moi lon hon 10,000
 CREATE OR ALTER TRIGGER Check_Diem
 ON GIAO_HANG_LE.DON_HANG
-FOR INSERT
+FOR INSERT, UPDATE
 AS
 BEGIN
 	DECLARE @gt INT, @diem INT, @diemht INT, @tdn VARCHAR(32);
@@ -154,7 +154,7 @@ BEGIN
 	SELECT @gt = INSERTED.gia_tien, @tdn  = GIAO_HANG_LE.KHACH_HANG.ten_dang_nhap, @diemht = GIAO_HANG_LE.TAI_KHOAN.diem_thuong, @diem = INSERTED.gia_tien / 1000
 	FROM INSERTED, GIAO_HANG_LE.TAI_KHOAN, GIAO_HANG_LE.KHACH_HANG
 	WHERE INSERTED.ma_khach_hang = GIAO_HANG_LE.KHACH_HANG.ma_khach_hang AND  GIAO_HANG_LE.KHACH_HANG.ten_dang_nhap = GIAO_HANG_LE.TAI_KHOAN.ten_dang_nhap;
-	IF (@gt > 20000)
+	IF (@gt > 10000)
 	BEGIN
 	UPDATE GIAO_HANG_LE.TAI_KHOAN 
 	SET GIAO_HANG_LE.TAI_KHOAN.diem_thuong = @diem + @diemht 
