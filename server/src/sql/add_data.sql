@@ -329,4 +329,3 @@ INSERT INTO GIAO_HANG_LE.GIAO_DEN_KHO(ma_don_hang, ma_tai_xe, ma_kiem_kho) VALUE
 (3, 'Nguyen Thanh Hai', 0876125567),
 (4, 'Pham Nguyen', 0567124765),
 (5, 'Ly Cong', 0986124543);
-

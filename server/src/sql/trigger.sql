@@ -7,9 +7,9 @@ AS
 BEGIN
 	DECLARE @kl FLOAT;
 	SELECT @kl = trong_luong from INSERTED;
-	IF (@kl > 10.0) 
+	IF (@kl > 20.0) 
 	BEGIN
-		RAISERROR ('Khoi luong don hang khong duoc vuot qua 10kg', 16, 1);
+		RAISERROR ('Khoi luong don hang khong duoc vuot qua 20kg', 16, 1);
 		ROLLBACK; 
 	END;
 END;
@@ -139,6 +139,26 @@ BEGIN
 	BEGIN
 	RAISERROR ('Tai xe nhan don hang phai khop khi giao don hang den kho', 16, 1);
 	ROLLBACK; 
+	END;
+END;
+
+
+--- Cong diem cho tk neu co don hang moi lon hon 20,000
+CREATE OR ALTER TRIGGER Check_Diem
+ON GIAO_HANG_LE.DON_HANG
+FOR INSERT
+AS
+BEGIN
+	DECLARE @gt INT, @diem INT, @diemht INT, @tdn VARCHAR(32);
+
+	SELECT @gt = INSERTED.gia_tien, @tdn  = GIAO_HANG_LE.KHACH_HANG.ten_dang_nhap, @diemht = GIAO_HANG_LE.TAI_KHOAN.diem_thuong, @diem = INSERTED.gia_tien / 1000
+	FROM INSERTED, GIAO_HANG_LE.TAI_KHOAN, GIAO_HANG_LE.KHACH_HANG
+	WHERE INSERTED.ma_khach_hang = GIAO_HANG_LE.KHACH_HANG.ma_khach_hang AND  GIAO_HANG_LE.KHACH_HANG.ten_dang_nhap = GIAO_HANG_LE.TAI_KHOAN.ten_dang_nhap;
+	IF (@gt > 20000)
+	BEGIN
+	UPDATE GIAO_HANG_LE.TAI_KHOAN 
+	SET GIAO_HANG_LE.TAI_KHOAN.diem_thuong = @diem + @diemht 
+	WHERE GIAO_HANG_LE.TAI_KHOAN.ten_dang_nhap = @tdn;
 	END;
 END;
 
