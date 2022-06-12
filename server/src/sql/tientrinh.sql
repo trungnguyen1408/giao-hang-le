@@ -89,3 +89,5 @@ BEGIN
     RETURN;
 END;
 GO
+
+SELECT * FROM GIAO_HANG_LE.Tien_Trinh_Don_Hang(1);
