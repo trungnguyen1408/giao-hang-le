@@ -63,5 +63,5 @@ AS
     SET gia_tien = gia_tien
         + GIAO_HANG_LE.Tinh_Tien_Mot_Chang(trong_luong, duoi_1kg, duoi_10kg, tren_10kg)
     FROM DON_HANG, tong_cong
-    WHERE DON_HANG.ma_don_hang = tong_cong.ma_don_hang
+    WHERE DON_HANG.ma_don_hang = tong_cong.ma_don_hang;
 GO
