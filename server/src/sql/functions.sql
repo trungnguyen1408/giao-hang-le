@@ -1,5 +1,22 @@
-DROP FUNCTION IF EXISTS GIAO_HANG_LE.Tien_Trinh_Don_Hang;
+--- 1.2.4. Function
+
+CREATE OR ALTER FUNCTION GIAO_HANG_LE.Doanh_Thu_Thang(@thang INT, @nam INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @income INT;
+    SELECT @income = SUM(gia_tien)
+    FROM GIAO_HANG_LE.DON_HANG
+    WHERE @thang = MONTH(thoi_gian) AND @nam = YEAR(thoi_gian)
+    RETURN @income;
+END;
 GO
+
+--SELECT GIAO_HANG_LE.Doanh_Thu_Thang(6, 2022);
+--GO
+
+--DROP FUNCTION IF EXISTS GIAO_HANG_LE.Tien_Trinh_Don_Hang;
+
 CREATE FUNCTION GIAO_HANG_LE.Tien_Trinh_Don_Hang(
     @no INT
 )
@@ -88,4 +105,32 @@ BEGIN
 END;
 GO
 
-SELECT * FROM GIAO_HANG_LE.Tien_Trinh_Don_Hang(4);
+--SELECT * FROM GIAO_HANG_LE.Tien_Trinh_Don_Hang(4);
+--GO
+
+
+
+--- Phai chay truoc khi chay lenh trigger
+--- Dung cho viec tinh tien trong trigger
+DROP FUNCTION IF EXISTS GIAO_HANG_LE.Tinh_Tien_Mot_Chang;
+GO
+CREATE FUNCTION GIAO_HANG_LE.Tinh_Tien_Mot_Chang(
+    @trong_luong FLOAT,
+    @phi_duoi_1kg INT,
+    @phi_duoi_10kg INT,
+    @phi_tren_10kg INT
+)
+RETURNS FLOAT
+AS
+BEGIN
+    DECLARE @sum FLOAT
+
+    SELECT @sum = (CASE
+        WHEN @trong_luong >= 10 THEN (@trong_luong - 10) * @phi_tren_10kg
+        WHEN @trong_luong >= 1 THEN @phi_duoi_10kg
+        ELSE @phi_duoi_1kg
+    END)
+
+    RETURN @sum
+END
+GO
