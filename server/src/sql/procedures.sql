@@ -140,13 +140,18 @@ BEGIN
     BEGIN
         SELECT @ma_kiem_kho = ma_nhan_vien
         FROM KIEM_KHO
-        WHERE ma_nhan_vien = @ma_nhan_vien
+        WHERE ma_nhan_vien = @ma_nhan_vien;
         SELECT @ma_tai_xe = ma_tai_xe
         FROM TAI_XE
-        WHERE ma_tai_xe = @ma_nhan_vien
+        WHERE ma_tai_xe = @ma_nhan_vien;
     END
-    SELECT @ma_khach_hang, @ma_kiem_kho, @ma_tai_xe
+    SELECT @ma_khach_hang as ma_khach_hang, @ma_kiem_kho as ma_kiem_kho, @ma_tai_xe as ma_tai_xe
 END
+ELSE 
+	BEGIN
+        RAISERROR ('Sai ten dang nhap hoac mat khau', 16, 1);
+        RETURN;
+	END
 GO
 
 SELECT * FROM GIAO_HANG_LE.TAI_KHOAN;
