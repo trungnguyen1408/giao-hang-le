@@ -126,7 +126,7 @@ BEGIN
     DECLARE @sum FLOAT
 
     SELECT @sum = (CASE
-        WHEN @trong_luong >= 10 THEN (@trong_luong - 10) * @phi_tren_10kg
+        WHEN @trong_luong >= 10 THEN @phi_duoi_10kg + (@trong_luong - 10) * @phi_tren_10kg
         WHEN @trong_luong >= 1 THEN @phi_duoi_10kg
         ELSE @phi_duoi_1kg
     END)

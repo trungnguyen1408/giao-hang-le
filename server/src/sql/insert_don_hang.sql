@@ -11,7 +11,7 @@ INSERT INTO GIAO_HANG_LE.NGUOI_NHAN VALUES (1, 'Nguyen Van Thanh', 0674124978);
 INSERT INTO GIAO_HANG_LE.DON_HANG(ma_khach_hang, trong_luong, can_giao_di, dia_chi_di, dia_chi_den) VALUES  (6, 8.7, 0, '97 Lanh Binh Thai, Thi tran Can Giuoc, Huyen Can Giuoc, Long An', '347 Huynh Van Banh, Phuong 11, Quan Phu Nhuan, Thanh pho Ho Chi Minh');
 INSERT INTO GIAO_HANG_LE.DI_QUA VALUES  (2, 18, 1), (2, 16, 2), (2, 58, 3), (2, 149, 4);
 INSERT INTO GIAO_HANG_LE.NGUOI_NHAN VALUES  (2, 'Tran Van Hai', 0986243145);
-INSERT INTO GIAO_HANG_LE.DON_HANG(ma_khach_hang, trong_luong, can_giao_di, dia_chi_di, dia_chi_den) VALUES  (3, 0.6, 1, 'Ky tuc xa khu A, Phuong Linh Trung, Thanh pho Thu Duc, Thanh pho Ho Chi Minh', '34 Phan Van Tri, Quan Go Vap, Thanh pho Ho Chi Minh');
+INSERT INTO GIAO_HANG_LE.DON_HANG(ma_khach_hang, trong_luong, can_giao_di, dia_chi_di, dia_chi_den) VALUES  (3, 10.6, 1, 'Ky tuc xa khu A, Phuong Linh Trung, Thanh pho Thu Duc, Thanh pho Ho Chi Minh', '34 Phan Van Tri, Quan Go Vap, Thanh pho Ho Chi Minh');
 INSERT INTO GIAO_HANG_LE.DI_QUA VALUES  (3, 143, 1);
 INSERT INTO GIAO_HANG_LE.NGUOI_NHAN VALUES  (3, 'Nguyen Thanh Hai', 0876125567);
 INSERT INTO GIAO_HANG_LE.DON_HANG(ma_khach_hang, trong_luong, can_giao_di, dia_chi_di, dia_chi_den) VALUES  (5, 5.3, 0, '473 Nguyen An Ninh, Phuong 9, Thanh pho Vung Tau, Tinh Ba Ria Vung Tau', '20 Huynh Tinh Cua, Quan 3, Thanh pho Ho Chi Minh');
